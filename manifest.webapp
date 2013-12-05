@@ -1,0 +1,21 @@
+{
+    "version":"1.0",
+  "name": "SonarQube",
+    "description": "SonarQube Firefox OS based client application",
+    "launch_path": "/index.html",
+    "icons": {
+        "16": "/images/icon.png",
+        "32": "/images/icon.png",
+        "48": "/images/icon.png",
+        "128": "/images/icon.png"
+    },
+  "developer": {
+        "name": "Balázs Bakai",
+        "url": "http://seamplex.blogspot.hu/"
+    },
+    "default_locale": "en",
+  "type": "privileged",
+    "permissions": {
+        "systemXHR": { "description": "Required to make Ajax Calls over the Network" }
+    }
+}
