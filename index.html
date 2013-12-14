@@ -11,9 +11,14 @@
 <link rel="stylesheet" type="text/css" href="css/app.css" />
 <link rel="stylesheet" type="text/css" href="css/lists.css" />
 
+<link rel="prefetch" type="application/l10n" href="l10n/locales.ini" />
+
 <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
 <script type="text/javascript" src="js/brick-0.9.1.js"></script>
+<script type="text/javascript" src="js/l10n.js"></script>
 <script type="text/javascript" src="js/app.js"></script>
+
+
 </head>
 
 <body role="application">
@@ -23,8 +28,7 @@
       <menu type="toolbar">
         <a href="#"><span class="icon icon-add">add</span></a>
       </menu>
-      <h1>
-        Menü<em></em>
+      <h1><span data-l10n-id="Menu"/>Menu<em></em>
       </h1>
     </header>
     <nav>
@@ -57,20 +61,20 @@
       <!-- content start -->
       <section role="region">
         <ul role="tablist" data-items="3" class="top">
-          <li id="panel1" role="tab"><a href="#panel1" id="buttonProjects">Projects</a>
+          <li id="panel1" role="tab"><a href="#panel1" id="buttonProjects" data-l10n-id="Projects">Projects</a>
             <div role="tabpanel">
               <section data-type="list">
                 <ul id="resultsProjects" />
               </section>
 
             </div></li>
-          <li id="panel2" role="tab"><a href="#panel2" id="buttonUsers">Users</a>
+          <li id="panel2" role="tab"><a href="#panel2" id="buttonUsers" data-l10n-id="Users">Users</a>
             <div role="tabpanel">
               <section data-type="list">
                 <ul id="resultsUsers" />
               </section>
             </div></li>
-          <li id="panel3" role="tab"><a href="#panel3" id="buttonPlugins">Plugins</a>
+          <li id="panel3" role="tab"><a href="#panel3" id="buttonPlugins" data-l10n-id="Plugins">Plugins</a>
             <div role="tabpanel">
 
               <section data-type="list">
