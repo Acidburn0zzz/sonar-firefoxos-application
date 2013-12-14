@@ -2,9 +2,13 @@ var xhr = new XMLHttpRequest({
   mozSystem : true
 });
 
+var projectsAreLoaded = false;
+var pluginsAreLoaded = false;
+var usersAreLoaded = false;
+
 function sendXHR(requestType, requestURL, handler) {
 
-  xhr.onreadystatechange = handler; // xhr.onload = handler;
+  xhr.onreadystatechange = handler;
   xhr.open(requestType, requestURL, true);
   xhr.onerror = function() {
     console.log('Error loading data');
@@ -36,7 +40,9 @@ function populateProjectsTab() {
   $("#resultsProjects").css("visibility", "visible");
   $("#resultsPlugins").css("visibility", "hidden");
   $("#resultsUsers").css("visibility", "hidden");
-  sendXHR("GET", "http://nemo.sonarqube.org/api/resources?format=json", processProjects());
+
+  if (!projectsAreLoaded)
+    sendXHR("GET", "http://nemo.sonarqube.org/api/resources?format=json", processProjects());
 }
 
 function populatePluginsTab() {
@@ -45,7 +51,9 @@ function populatePluginsTab() {
   $("#resultsProjects").css("visibility", "hidden");
   $("#resultsPlugins").css("visibility", "visible");
   $("#resultsUsers").css("visibility", "hidden");
-  sendXHR("GET", "http://nemo.sonarqube.org/api/updatecenter/installed_plugins?format=json", processPlugins());
+
+  if (!pluginsAreLoaded)
+    sendXHR("GET", "http://nemo.sonarqube.org/api/updatecenter/installed_plugins?format=json", processPlugins());
 }
 
 function populateUsersTab() {
@@ -53,7 +61,9 @@ function populateUsersTab() {
   $("#resultsProjects").css("visibility", "hidden");
   $("#resultsPlugins").css("visibility", "hidden");
   $("#resultsUsers").css("visibility", "visible");
-  sendXHR("GET", "http://nemo.sonarqube.org/api/users/search?format=json", processUsers());
+
+  if (!usersAreLoaded)
+    sendXHR("GET", "http://nemo.sonarqube.org/api/users/search?format=json", processUsers());
 }
 
 function processProjects() {
@@ -64,6 +74,7 @@ function processProjects() {
       for (var i = 0; i < obj.length; i++) {
         $('#resultsProjects').append("<li><p>" + obj[i].name + "</p><p>" + obj[i].lang + "</p></li>");
       }
+      projectsAreLoaded = true;
     } else {
       console.log("did not get data " + xhr.status);
     }
@@ -79,6 +90,7 @@ function processUsers() {
         $('#resultsUsers').append(
             "<li><p>" + obj['users'][i].name + "</p><p>" + (obj['users'][i].email == null ? '' : obj['users'][i].email) + "</p></li>");
       }
+      usersAreLoaded = true;
     } else {
       console.log("did not get data " + xhr.status);
     }
@@ -93,6 +105,7 @@ function processPlugins() {
       for (var i = 0; i < obj.length; i++) {
         $('#resultsPlugins').append("<li><p>" + obj[i].name + "</p><p>" + obj[i].version + "</p></li>");
       }
+      pluginsAreLoaded = true;
     } else {
       console.log("did not get data " + xhr.status);
     }
