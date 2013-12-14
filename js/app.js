@@ -37,6 +37,10 @@ $(document).ready(function() {
 function populateProjectsTab() {
   console.log("populateProjectsTab");
 
+  $("#buttonProjects").css("color","rgb(98, 198, 245)");
+  $("#buttonUsers").css("color","white");
+  $("#buttonPlugins").css("color","white");
+  $("#tabpanel1").css("z-index", "0");
   $("#resultsProjects").css("visibility", "visible");
   $("#resultsPlugins").css("visibility", "hidden");
   $("#resultsUsers").css("visibility", "hidden");
@@ -45,25 +49,34 @@ function populateProjectsTab() {
     sendXHR("GET", "http://nemo.sonarqube.org/api/resources?format=json", processProjects());
 }
 
-function populatePluginsTab() {
-  console.log("populatePluginsTab");
-
-  $("#resultsProjects").css("visibility", "hidden");
-  $("#resultsPlugins").css("visibility", "visible");
-  $("#resultsUsers").css("visibility", "hidden");
-
-  if (!pluginsAreLoaded)
-    sendXHR("GET", "http://nemo.sonarqube.org/api/updatecenter/installed_plugins?format=json", processPlugins());
-}
-
 function populateUsersTab() {
   console.log("populateUsersTab");
+
+  $("#buttonProjects").css("color","white");
+  $("#buttonUsers").css("color","rgb(98, 198, 245)");
+  $("#buttonPlugins").css("color","white");
+  $("#tabpanel2").css("z-index", "0");
   $("#resultsProjects").css("visibility", "hidden");
   $("#resultsPlugins").css("visibility", "hidden");
   $("#resultsUsers").css("visibility", "visible");
 
   if (!usersAreLoaded)
     sendXHR("GET", "http://nemo.sonarqube.org/api/users/search?format=json", processUsers());
+}
+
+function populatePluginsTab() {
+  console.log("populatePluginsTab");
+
+  $("#buttonProjects").css("color","white");
+  $("#buttonUsers").css("color","white");
+  $("#buttonPlugins").css("color","rgb(98, 198, 245)");
+  $("#tabpanel3").css("z-index", "0");
+  $("#resultsProjects").css("visibility", "hidden");
+  $("#resultsPlugins").css("visibility", "visible");
+  $("#resultsUsers").css("visibility", "hidden");
+
+  if (!pluginsAreLoaded)
+    sendXHR("GET", "http://nemo.sonarqube.org/api/updatecenter/installed_plugins?format=json", processPlugins());
 }
 
 function processProjects() {
