@@ -6,6 +6,16 @@ var projectsAreLoaded = false;
 var pluginsAreLoaded = false;
 var usersAreLoaded = false;
 
+function sendEmail(toEmail, subject, body) {
+  var createEmail = new MozActivity({
+    name : "new",
+    data : {
+      type : "mail",
+      url : "mailto:" + toEmail + "?&subject=" + subject + "&body=" + body + "",
+    }
+  });
+}
+
 function sendXHR(requestType, requestURL, handler) {
 
   xhr.onreadystatechange = handler;
@@ -37,9 +47,9 @@ $(document).ready(function() {
 function populateProjectsTab() {
   console.log("populateProjectsTab");
 
-  $("#buttonProjects").css("color","rgb(98, 198, 245)");
-  $("#buttonUsers").css("color","white");
-  $("#buttonPlugins").css("color","white");
+  $("#buttonProjects").css("color", "rgb(98, 198, 245)");
+  $("#buttonUsers").css("color", "white");
+  $("#buttonPlugins").css("color", "white");
   $("#tabpanel1").css("z-index", "0");
   $("#resultsProjects").css("visibility", "visible");
   $("#resultsPlugins").css("visibility", "hidden");
@@ -52,9 +62,9 @@ function populateProjectsTab() {
 function populateUsersTab() {
   console.log("populateUsersTab");
 
-  $("#buttonProjects").css("color","white");
-  $("#buttonUsers").css("color","rgb(98, 198, 245)");
-  $("#buttonPlugins").css("color","white");
+  $("#buttonProjects").css("color", "white");
+  $("#buttonUsers").css("color", "rgb(98, 198, 245)");
+  $("#buttonPlugins").css("color", "white");
   $("#tabpanel2").css("z-index", "0");
   $("#resultsProjects").css("visibility", "hidden");
   $("#resultsPlugins").css("visibility", "hidden");
@@ -67,9 +77,9 @@ function populateUsersTab() {
 function populatePluginsTab() {
   console.log("populatePluginsTab");
 
-  $("#buttonProjects").css("color","white");
-  $("#buttonUsers").css("color","white");
-  $("#buttonPlugins").css("color","rgb(98, 198, 245)");
+  $("#buttonProjects").css("color", "white");
+  $("#buttonUsers").css("color", "white");
+  $("#buttonPlugins").css("color", "rgb(98, 198, 245)");
   $("#tabpanel3").css("z-index", "0");
   $("#resultsProjects").css("visibility", "hidden");
   $("#resultsPlugins").css("visibility", "visible");
@@ -100,8 +110,13 @@ function processUsers() {
     if (xhr.readyState == 4 && xhr.status == 200) {
       var obj = jQuery.parseJSON(xhr.responseText);
       for (var i = 0; i < obj['users'].length; i++) {
-        $('#resultsUsers').append(
-            "<li><p>" + obj['users'][i].name + "</p><p>" + (obj['users'][i].email == null ? '' : obj['users'][i].email) + "</p></li>");
+
+        var sendMail = '';
+        if (obj['users'][i].email != null) {
+          sendMail = '<a href="javascript:;" onclick="sendEmail(\'' + obj['users'][i].email + '\',\'\',\'\');">' + obj['users'][i].email + '</a>';
+        }
+        $('#resultsUsers').append("<li><p>" + obj['users'][i].name + "</p><p>" + sendMail + "</p></li>");
+
       }
       usersAreLoaded = true;
     } else {
