@@ -15,4 +15,6 @@ WebActivities:
 
 * [webL10n](https://github.com/fabi1cazenave/webL10n)
 
+Screenshots:
 
+![1](http://sonarqube.15.x6.nabble.com/file/n5019946/ffos.png)
