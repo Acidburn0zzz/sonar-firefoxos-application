@@ -6,6 +6,16 @@ var projectsAreLoaded = false;
 var pluginsAreLoaded = false;
 var usersAreLoaded = false;
 
+function openInBrowser(link) {
+  var activity = new MozActivity({
+    name : "view",
+    data : {
+      type : "url",
+      url : link
+    }
+  });
+}
+
 function sendEmail(toEmail, subject, body) {
   var createEmail = new MozActivity({
     name : "new",
@@ -95,7 +105,9 @@ function processProjects() {
     if (xhr.readyState == 4 && xhr.status == 200) {
       var obj = jQuery.parseJSON(xhr.responseText);
       for (var i = 0; i < obj.length; i++) {
-        $('#resultsProjects').append("<li><p>" + obj[i].name + "</p><p>" + obj[i].lang + "</p></li>");
+
+        var link = '<a class="openInBrowser" href="#" onclick="openInBrowser(\'http://nemo.sonarqube.org/dashboard/index/' + obj[i].id + '\');">web</a>';
+        $('#resultsProjects').append("<li><p>" + obj[i].name + "</p><p>" + obj[i].lang + link+"</p></li>");
       }
       projectsAreLoaded = true;
     } else {
@@ -111,11 +123,12 @@ function processUsers() {
       var obj = jQuery.parseJSON(xhr.responseText);
       for (var i = 0; i < obj['users'].length; i++) {
 
-        var sendMail = '';
         if (obj['users'][i].email != null) {
-          sendMail = '<a class="sendEmail" href="javascript:;" onclick="sendEmail(\'' + obj['users'][i].email + '\',\'\',\'\');">' + obj['users'][i].email + '</a>';
+          var sendMail = '<a class="sendEmail" href="#" onclick="sendEmail(\'' + obj['users'][i].email + '\',\'\',\'\');">'+ obj['users'][i].email + '</a>';
+          $('#resultsUsers').append("<li><p>" + obj['users'][i].name + "</p><p>" + sendMail + "</p></li>");
+        } else {
+          $('#resultsUsers').append("<li><p>" + obj['users'][i].name + "</p></li>");
         }
-        $('#resultsUsers').append("<li><p>" + obj['users'][i].name + "</p><p>" + sendMail + "</p></li>");
 
       }
       usersAreLoaded = true;

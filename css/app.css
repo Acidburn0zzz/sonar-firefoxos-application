@@ -59,3 +59,9 @@ section[role="region"] > header:first-child .icon.icon-refresh {
   color:gray;
 }
 
+.openInBrowser{
+  position:absolute;
+  right:5px;
+  text-decoration: none;
+  color:gray;
+}
