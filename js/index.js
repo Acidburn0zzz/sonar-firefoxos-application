@@ -113,7 +113,7 @@ function processUsers() {
 
         var sendMail = '';
         if (obj['users'][i].email != null) {
-          sendMail = '<a href="javascript:;" onclick="sendEmail(\'' + obj['users'][i].email + '\',\'\',\'\');">' + obj['users'][i].email + '</a>';
+          sendMail = '<a class="sendEmail" href="javascript:;" onclick="sendEmail(\'' + obj['users'][i].email + '\',\'\',\'\');">' + obj['users'][i].email + '</a>';
         }
         $('#resultsUsers').append("<li><p>" + obj['users'][i].name + "</p><p>" + sendMail + "</p></li>");
 

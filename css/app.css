@@ -50,3 +50,12 @@ section[role="region"] > header:first-child .icon.icon-refresh {
   /*background-image: url(/images/icons/options.png);*/
   background-image: url(/images/common-refresh.png);
 }
+
+/*sendEmail link*/
+
+.sendEmail{
+  text-decoration: none;
+  font-style: italic;
+  color:gray;
+}
+
