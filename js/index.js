@@ -105,9 +105,11 @@ function processProjects() {
     if (xhr.readyState == 4 && xhr.status == 200) {
       var obj = jQuery.parseJSON(xhr.responseText);
       for (var i = 0; i < obj.length; i++) {
+          var listItem = document.createElement('li');
 
-        var link = '<a class="openInBrowser" href="#" onclick="openInBrowser(\'http://nemo.sonarqube.org/dashboard/index/' + obj[i].id + '\');">web</a>';
-        $('#resultsProjects').append("<li><p>" + obj[i].name + "</p><p>" + obj[i].lang + link+"</p></li>");
+          listItem.innerHTML = "<p>" + obj[i].name + "</p><p>" + obj[i].lang+"</p>"
+          listItem.onclick = (function(id) {return function(){ openInBrowser(id); }})('http://nemo.sonarqube.org/dashboard/index/' + obj[i].id);
+          $('#resultsProjects').append(listItem);
       }
       projectsAreLoaded = true;
     } else {
@@ -123,12 +125,17 @@ function processUsers() {
       var obj = jQuery.parseJSON(xhr.responseText);
       for (var i = 0; i < obj['users'].length; i++) {
 
-        if (obj['users'][i].email != null) {
-          var sendMail = '<a class="sendEmail" href="#" onclick="sendEmail(\'' + obj['users'][i].email + '\',\'\',\'\');">'+ obj['users'][i].email + '</a>';
-          $('#resultsUsers').append("<li><p>" + obj['users'][i].name + "</p><p>" + sendMail + "</p></li>");
-        } else {
-          $('#resultsUsers').append("<li><p>" + obj['users'][i].name + "</p></li>");
-        }
+        var name=obj['users'][i].name;
+        var email=obj['users'][i].email;
+
+      if (email != null) {
+          var listItem = document.createElement('li');
+          listItem.innerHTML = "<p>" + name+ "</p>" + "<p class='sendEmail'>" + email+"</p>";
+          listItem.onclick = (function(e, s, b) {return function(){ sendEmail(e,s,b); }})(email, '', '');
+          $('#resultsUsers').append(listItem);
+      } else {
+        $('#resultsUsers').append("<li><p>" + name + "</p></li>");
+      }
 
       }
       usersAreLoaded = true;
