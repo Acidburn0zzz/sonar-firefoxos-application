@@ -5,6 +5,8 @@ var xhr = new XMLHttpRequest({
 var projectsAreLoaded = false;
 var pluginsAreLoaded = false;
 var usersAreLoaded = false;
+var activeTab="projects";	//projects,users,plugins
+
 
 function openInBrowser(link) {
   var activity = new MozActivity({
@@ -52,10 +54,31 @@ $(document).ready(function() {
   $("#buttonUsers").click(function() {
     populateUsersTab()
   });
+
+  $("#buttonRefresh").click(function() {
+    refreshActiveTab();
+  });
 });
+
+function refreshActiveTab(){
+  if(activeTab=="projects"){
+    projectsAreLoaded=false;
+    populateProjectsTab();
+  }
+  else if(activeTab=="users"){
+      usersAreLoaded=false;
+      populateUsersTab();
+  }
+  else{
+      pluginsAreLoaded=false;
+      populatePluginsTab();
+    }
+}
 
 function populateProjectsTab() {
   console.log("populateProjectsTab");
+
+  activeTab="projects";
 
   $("#buttonProjects").css("color", "rgb(98, 198, 245)");
   $("#buttonUsers").css("color", "white");
@@ -72,6 +95,8 @@ function populateProjectsTab() {
 function populateUsersTab() {
   console.log("populateUsersTab");
 
+  activeTab="users";
+
   $("#buttonProjects").css("color", "white");
   $("#buttonUsers").css("color", "rgb(98, 198, 245)");
   $("#buttonPlugins").css("color", "white");
@@ -86,6 +111,8 @@ function populateUsersTab() {
 
 function populatePluginsTab() {
   console.log("populatePluginsTab");
+
+  activeTab="plugins";
 
   $("#buttonProjects").css("color", "white");
   $("#buttonUsers").css("color", "white");
