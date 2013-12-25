@@ -16,6 +16,7 @@
 <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
 <script type="text/javascript" src="js/brick-0.9.1.js"></script>
 <script type="text/javascript" src="js/l10n.js"></script>
+<script type="text/javascript" src="js/addnewserver.js"></script>
 
 
 </head>
@@ -40,32 +41,38 @@
   <section id="drawer" role="region">
     <header>
       <a href="#"> <span class="icon icon-menu">hide sidebar</span></a> <a href="#drawer"> <span class="icon icon-menu">show sidebar</span></a>
-      <h1>SonarQube</h1>
+      <h1 data-l10n-id="addNewServer">Add new server</h1>
     </header>
     <div role="main">
 
       <!-- content start -->
-    <section data-type="list">
-      <header>Add new server</header>
-      <ul>
-        <li>
-          <p>Server URL</p>
-          <p><input type="text"></p>
-        </li>
-        <li>
-          <p>Display name</p>
-          <p><input type="text"></p>
-        </li>
-        <li>
-          <p>Username</p>
-          <p><input type="text"></p>
-        </li>
-        <li>
-          <p>Password</p>
-          <p><input type="text"></p>
-        </li>
-      </ul>
-    </section>
+      <form action="#">
+      <section data-type="list">
+
+        <ul>
+          <li>
+            <p data-l10n-id="ServerURL">Server URL</p>
+            <p><input type="text"></p>
+          </li>
+          <li>
+            <p data-l10n-id="DisplayName">Display name</p>
+            <p><input type="text"></p>
+          </li>
+          <li>
+            <p data-l10n-id="UserName">Username</p>
+            <p><input type="text"></p>
+          </li>
+          <li>
+            <p data-l10n-id="Password">Password</p>
+            <p><input type="text"></p>
+          </li>
+          <li>
+           <button id="buttonSave" type="submit" data-l10n-id="save">save</button>
+          </li>
+        </ul>
+        </section>
+        </form>
+      </section>
     <!-- content end -->
 
     </div>
