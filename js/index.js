@@ -41,6 +41,16 @@ function sendXHR(requestType, requestURL, handler) {
 
 $(document).ready(function() {
 
+  /*local storage*/
+  key = localStorage.key("sqserver");
+  if(key){
+    val = localStorage.getItem(key);
+    console.log(key +": "+ val);
+  }
+  /*local storage*/
+
+
+
   populateProjectsTab();
 
   $("#buttonProjects").click(function() {
