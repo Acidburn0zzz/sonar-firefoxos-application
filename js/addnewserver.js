@@ -1,22 +1,29 @@
-var sonarQubeServer = function(serverURL,displayName) {
-  var serverURL = serverURL;
-  var displayName=displayName;
-};
 
-
+function Server(serverURL, displayName, userName, password) {
+  this.serverURL = serverURL;
+  this.displayName = displayName;
+  this.userName = userName;
+  this.password = password;
+}
 
 $(document).ready(function() {
   $("#buttonSave").click(function() {
     var serverURL = $("#ServerURL").val();
     var displayName = $("#DisplayName").val();
-    console.log(serverURL + " - "+ displayName);
+    var userName = $("#UserName").val();
+    var passw = $("#Passw").val();
+
+    console.log(serverURL);
+    console.log(displayName);
+    console.log(userName);
+    console.log(passw);
 
     if (window.localStorage) {
       localStorage.clear();
-      localStorage.setItem("sqserver",serverURL);
+      var sqserver=new Server(serverURL,displayName,userName,passw);
+      localStorage.setItem("sqserver", JSON.stringify(sqserver));
       alert("added");
     }
-
 
   });
 

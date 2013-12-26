@@ -41,13 +41,13 @@ function sendXHR(requestType, requestURL, handler) {
 
 $(document).ready(function() {
 
-  /*local storage*/
+  /*local storage handling*/
   key = localStorage.key("sqserver");
   if(key){
-    val = localStorage.getItem(key);
-    console.log(key +": "+ val);
+    val = JSON.parse(localStorage.getItem(key));
+    console.log(key +": "+val.serverURL +", "+val.displayName+", "+val.userName+", "+val.password);
   }
-  /*local storage*/
+  /*local storage handling*/
 
 
 
