@@ -32,7 +32,7 @@ $(document).ready(function() {
       var sqserver=new Server(serverURL,displayName,userName,passw);
       localStorage.setItem("sqserver", JSON.stringify(sqserver));
     }
-
+    alert("Sikeres mentés")
   });
 
 });

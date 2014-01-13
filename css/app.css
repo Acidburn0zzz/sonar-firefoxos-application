@@ -66,4 +66,22 @@ section[role="region"] > header:first-child .icon.icon-refresh {
   color:gray;
 }
 
+.sq-input{
+    width: 90%;
+    height: 20px;
+    font-size: 18px;
+    padding: 5px;
+    margin-top: 7px;
+}
+
+
+#addnewserver-ul>li{
+  height: 8rem;
+  margin-top: 7px;
+}
+
+#buttonSave{
+  font-size: 22px;
+}
+
 
