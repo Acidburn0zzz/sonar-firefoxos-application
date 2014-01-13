@@ -6,9 +6,7 @@ var projectsAreLoaded = false;
 var pluginsAreLoaded = false;
 var usersAreLoaded = false;
 var activeTab="projects";	//projects,users,plugins
-
 var serverURL="";
-var displayName="";
 
 function openInBrowser(link) {
   var activity = new MozActivity({
@@ -47,7 +45,7 @@ function readServerParametersFromLocalStorage(){
       val = JSON.parse(localStorage.getItem(key));
       console.log(key +": "+val.serverURL +", "+val.displayName+", "+val.userName+", "+val.password);
       serverURL=val.serverURL;
-      displayName=val.displayName;
+      document.getElementById("sq-name").innerHTML=val.displayName
     }
 }
 
@@ -105,8 +103,13 @@ function populateProjectsTab() {
   $("#resultsPlugins").css("visibility", "hidden");
   $("#resultsUsers").css("visibility", "hidden");
 
+  if(serverURL==""){
+    hideProgressBar("#projectsProgress");
+    return;
+  }
+
   if (!projectsAreLoaded){
-  showProgressBar("#projectsProgress");
+    showProgressBar("#projectsProgress");
     sendXHR("GET", serverURL+"/api/resources?format=json", processProjects());
   }
 
@@ -126,6 +129,11 @@ function populateUsersTab() {
   $("#resultsPlugins").css("visibility", "hidden");
   $("#resultsUsers").css("visibility", "visible");
 
+  if(serverURL==""){
+      hideProgressBar("#usersProgress");
+      return;
+   }
+
   if (!usersAreLoaded){
     showProgressBar("#usersProgress");
     sendXHR("GET", serverURL+"/api/users/search?format=json", processUsers());
@@ -144,6 +152,11 @@ function populatePluginsTab() {
   $("#resultsProjects").css("visibility", "hidden");
   $("#resultsPlugins").css("visibility", "visible");
   $("#resultsUsers").css("visibility", "hidden");
+
+  if(serverURL==""){
+      hideProgressBar("#pluginsProgress");
+      return;
+   }
 
   if (!pluginsAreLoaded){
     showProgressBar("#pluginsProgress");
