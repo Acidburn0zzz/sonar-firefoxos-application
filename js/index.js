@@ -7,6 +7,8 @@ var pluginsAreLoaded = false;
 var usersAreLoaded = false;
 var activeTab="projects";	//projects,users,plugins
 
+var serverURL="";
+var displayName="";
 
 function openInBrowser(link) {
   var activity = new MozActivity({
@@ -39,17 +41,19 @@ function sendXHR(requestType, requestURL, handler) {
   xhr.send();
 }
 
+function readServerParametersFromLocalStorage(){
+    key = localStorage.key("sqserver");
+    if(key){
+      val = JSON.parse(localStorage.getItem(key));
+      console.log(key +": "+val.serverURL +", "+val.displayName+", "+val.userName+", "+val.password);
+      serverURL=val.serverURL;
+      displayName=val.displayName;
+    }
+}
+
 $(document).ready(function() {
 
-  /*local storage handling*/
-  key = localStorage.key("sqserver");
-  if(key){
-    val = JSON.parse(localStorage.getItem(key));
-    console.log(key +": "+val.serverURL +", "+val.displayName+", "+val.userName+", "+val.password);
-  }
-  /*local storage handling*/
-
-
+  readServerParametersFromLocalStorage();
 
   populateProjectsTab();
 
@@ -103,7 +107,7 @@ function populateProjectsTab() {
 
   if (!projectsAreLoaded){
   showProgressBar("#projectsProgress");
-    sendXHR("GET", "http://nemo.sonarqube.org/api/resources?format=json", processProjects());
+    sendXHR("GET", serverURL+"/api/resources?format=json", processProjects());
   }
 
 
@@ -124,7 +128,7 @@ function populateUsersTab() {
 
   if (!usersAreLoaded){
     showProgressBar("#usersProgress");
-    sendXHR("GET", "http://nemo.sonarqube.org/api/users/search?format=json", processUsers());
+    sendXHR("GET", serverURL+"/api/users/search?format=json", processUsers());
   }
 }
 
@@ -143,7 +147,7 @@ function populatePluginsTab() {
 
   if (!pluginsAreLoaded){
     showProgressBar("#pluginsProgress");
-    sendXHR("GET", "http://nemo.sonarqube.org/api/updatecenter/installed_plugins?format=json", processPlugins());
+    sendXHR("GET", serverURL+"/api/updatecenter/installed_plugins?format=json", processPlugins());
   }
 }
 
@@ -156,7 +160,7 @@ function processProjects() {
           var listItem = document.createElement('li');
 
           listItem.innerHTML = "<p>" + obj[i].name + "</p><p>" + obj[i].lang+"</p>"
-          listItem.onclick = (function(id) {return function(){ openInBrowser(id); }})('http://nemo.sonarqube.org/dashboard/index/' + obj[i].id);
+          listItem.onclick = (function(id) {return function(){ openInBrowser(id); }})(serverURL+'/dashboard/index/' + obj[i].id);
           $('#resultsProjects').append(listItem);
       }
       projectsAreLoaded = true;
