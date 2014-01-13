@@ -105,6 +105,7 @@ function populateProjectsTab() {
 
   if(serverURL==""){
     hideProgressBar("#projectsProgress");
+    document.getElementById("resultsProjects").innerHTML='<a id="sq-noserverurl-link" href="addnewserver.html" data-l10n-id="addNewServer">addNewServer</a>';
     return;
   }
 

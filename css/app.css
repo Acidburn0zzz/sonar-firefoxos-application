@@ -84,4 +84,9 @@ section[role="region"] > header:first-child .icon.icon-refresh {
   font-size: 22px;
 }
 
+#sq-noserverurl-link{
+  margin-top: 40px;
+  position:absolute;
+}
+
 
